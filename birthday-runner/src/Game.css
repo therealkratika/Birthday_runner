@@ -8,11 +8,24 @@
   padding: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
-  touch-action: none;
   font-family: 'Press Start 2P', monospace;
 }
 
-/* ── Game Root ───────────────────────────────────────────────────────────── */
+/* ── Page Shell — full black background ─────────────────────────────────── */
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+  overflow-x: hidden;
+}
+
+/* ── Game Root — centered glowing card on black ──────────────────────────── */
 .game-root {
   display: flex;
   flex-direction: column;
@@ -21,6 +34,9 @@
   margin: 0 auto;
   background: #1a0a2e;
   user-select: none;
+  box-shadow: 0 0 0 2px #3a1a6e, 0 0 40px rgba(120, 60, 220, 0.35);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 /* ── Canvas Wrapper ──────────────────────────────────────────────────────── */
@@ -32,6 +48,7 @@
 .game-canvas {
   display: block;
   width: 100%;
+  height: auto;
   image-rendering: pixelated;
   cursor: pointer;
 }
@@ -61,18 +78,20 @@
   text-align: center;
   pointer-events: none;
   z-index: 20;
+  width: 90%;
 }
 
 .start-msg h2 {
-  font-size: 11px;
+  font-size: clamp(8px, 2.5vw, 11px);
   color: #ffdd00;
   text-shadow: 2px 2px #000;
   margin-bottom: 10px;
   animation: pulse 1s infinite alternate;
+  white-space: nowrap;
 }
 
 .start-msg p {
-  font-size: 7px;
+  font-size: clamp(5px, 1.8vw, 7px);
   color: #aef;
   line-height: 2.2;
 }
@@ -90,20 +109,21 @@
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 20;
-  background: rgba(0, 0, 10, 0.88);
+  background: rgba(0, 0, 10, 0.92);
   padding: 14px 20px;
   border: 2px solid #ffdd00;
-  min-width: 200px;
+  width: max-content;
+  max-width: 88%;
 }
 
 .death-msg h2 {
-  font-size: 10px;
+  font-size: clamp(8px, 2.5vw, 10px);
   color: #ff4444;
   margin-bottom: 8px;
 }
 
 .death-msg p {
-  font-size: 7px;
+  font-size: clamp(5px, 1.8vw, 7px);
   color: #aef;
   line-height: 2;
 }
@@ -112,8 +132,9 @@
 .controls {
   display: flex;
   justify-content: center;
-  padding: 8px 10px;
+  padding: 10px;
   background: #110828;
+  border-top: 1px solid #2a1050;
 }
 
 /* ── Jump Button ─────────────────────────────────────────────────────────── */
@@ -121,13 +142,14 @@
   background: rgba(255, 220, 0, 0.18);
   border: 2px solid rgba(255, 220, 0, 0.55);
   color: #ffdd00;
-  font-size: 9px;
-  width: 180px;
+  font-size: clamp(7px, 2vw, 9px);
+  width: clamp(140px, 45%, 200px);
   height: 52px;
   border-radius: 8px;
   cursor: pointer;
   letter-spacing: 0.5px;
   transition: background 0.1s, transform 0.1s;
+  min-height: 48px;
 }
 
 .jump-btn:active {
@@ -142,51 +164,61 @@
   align-items: center;
   gap: 10px;
   background: #0a0020;
-  padding: 20px 14px;
+  padding: 20px 14px 28px;
   text-align: center;
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
   min-height: 500px;
+  box-shadow: 0 0 0 2px #3a1a6e, 0 0 40px rgba(120, 60, 220, 0.35);
+  border-radius: 4px;
 }
 
+/* emoji rows */
 .crow {
-  font-size: 60px;
+  font-size: clamp(16px, 5vw, 22px);
+  letter-spacing: 3px;
   font-family: sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  line-height: 1.4;
 }
-.crow img{
-  width: 80px;
+
+.crow img {
+  width: clamp(48px, 15vw, 80px);
   height: auto;
 }
+
+/* ── Birthday title ──────────────────────────────────────────────────────── */
 .bday-title {
-  font-size: 13px;
+  font-size: clamp(10px, 3.2vw, 14px);
   color: #ffdd00;
   text-shadow: 2px 2px #c00, 4px 4px #800;
   line-height: 2;
   margin: 6px 0;
 }
+
+/* ── Bouncing cake ───────────────────────────────────────────────────────── */
 .big-cake {
-  font-size: 60px;
+  font-size: clamp(44px, 13vw, 64px);
   font-family: sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
   animation: bop 0.6s infinite alternate;
+  line-height: 1;
 }
 
 .big-cake img {
-  width: 200px;
-  height: auto;}
+  width: clamp(100px, 40vw, 200px);
+  height: auto;
+}
 
 @keyframes bop {
   to { transform: translateY(-10px); }
 }
 
+/* ── Birthday subtitle ───────────────────────────────────────────────────── */
 .bday-sub {
-  font-size: 7px;
+  font-size: clamp(6px, 1.8vw, 7px);
   color: #aef;
   line-height: 2.2;
   text-align: center;
@@ -194,16 +226,17 @@
 
 /* ── Open Letter Button ──────────────────────────────────────────────────── */
 .open-btn {
-  font-size: 8px;
+  font-size: clamp(7px, 2vw, 9px);
   background: #ffdd00;
   color: #000;
   border: 3px solid #fff;
-  padding: 14px 18px;
+  padding: 14px 20px;
   cursor: pointer;
   border-radius: 6px;
   margin-top: 4px;
   animation: glo 1s infinite alternate;
   transition: transform 0.1s;
+  min-height: 48px;
 }
 
 .open-btn:active {
@@ -212,29 +245,31 @@
 
 @keyframes glo {
   from { box-shadow: 0 0 6px #fff; }
-  to   { box-shadow: 0 0 20px #ff0, 0 0 40px #fa0; }
+  to   { box-shadow: 0 0 22px #ff0, 0 0 44px #fa0; }
 }
 
 /* ── Letter Modal Overlay ────────────────────────────────────────────────── */
 .letter-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.92);
+  background: rgba(0, 0, 0, 0.93);
   z-index: 200;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
+  padding: 16px;
+  overflow-y: auto;
 }
 
 /* ── Letter Paper ────────────────────────────────────────────────────────── */
 .letter-paper {
   background: #fff9ec;
   border: 3px solid #c8a000;
-  padding: 22px 18px;
+  padding: clamp(16px, 5vw, 26px) clamp(14px, 4vw, 22px);
   width: 100%;
-  max-width: 340px;
+  max-width: 500px;
   position: relative;
+  border-radius: 2px;
 }
 
 .letter-paper::before {
@@ -243,10 +278,11 @@
   inset: 7px;
   border: 1px dashed #c8a000;
   pointer-events: none;
+  border-radius: 1px;
 }
 
 .letter-head {
-  font-size: 8px;
+  font-size: clamp(7px, 2vw, 9px);
   color: #a00;
   text-align: center;
   margin-bottom: 14px;
@@ -254,7 +290,7 @@
 
 .letter-body {
   font-family: Georgia, serif;
-  font-size: 13px;
+  font-size: clamp(12px, 3.5vw, 14px);
   line-height: 1.9;
   color: #2a1800;
 }
@@ -268,7 +304,7 @@
   margin-top: 14px;
   font-family: Georgia, serif;
   font-style: italic;
-  font-size: 12px;
+  font-size: clamp(11px, 3vw, 13px);
   color: #555;
   text-align: right;
 }
@@ -278,7 +314,7 @@
   position: absolute;
   top: 8px;
   right: 12px;
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
   color: #a00;
   font-weight: bold;
@@ -287,8 +323,53 @@
   font-family: serif;
   line-height: 1;
   transition: color 0.15s;
+  padding: 4px 6px;
 }
 
 .close-btn:hover {
   color: #f00;
+}
+
+/* ── Small phones (≤ 380px) ──────────────────────────────────────────────── */
+@media (max-width: 380px) {
+  .hud {
+    font-size: 6px;
+    padding: 0 7px;
+  }
+
+  .jump-btn {
+    width: 60%;
+    height: 48px;
+    font-size: 7px;
+  }
+
+  .bday-title {
+    font-size: 9px;
+  }
+
+  .letter-body {
+    font-size: 12px;
+  }
+
+  .crow {
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+}
+
+/* ── Tablet / wide screens (≥ 520px) ────────────────────────────────────── */
+@media (min-width: 520px) {
+  .game-root,
+  .bday-screen {
+    border-radius: 8px;
+  }
+
+  .hud {
+    font-size: 8px;
+  }
+
+  .jump-btn {
+    font-size: 9px;
+    height: 56px;
+  }
 }
