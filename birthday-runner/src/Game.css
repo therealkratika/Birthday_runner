@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* ── Reset ───────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none;
+  font-family: 'Press Start 2P', monospace;
+}
+
+/* ── Game Root ───────────────────────────────────────────────────────────── */
+.game-root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  background: #1a0a2e;
+  user-select: none;
+}
+
+/* ── Canvas Wrapper ──────────────────────────────────────────────────────── */
+.game-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.game-canvas {
+  display: block;
+  width: 100%;
+  image-rendering: pixelated;
+  cursor: pointer;
+}
+
+/* ── HUD ─────────────────────────────────────────────────────────────────── */
+.hud {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  color: #ffe;
+  font-size: 7px;
+  pointer-events: none;
+  text-shadow: 1px 1px #000;
+  z-index: 10;
+}
+
+/* ── Start / Idle Screen ─────────────────────────────────────────────────── */
+.start-msg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.start-msg h2 {
+  font-size: 11px;
+  color: #ffdd00;
+  text-shadow: 2px 2px #000;
+  margin-bottom: 10px;
+  animation: pulse 1s infinite alternate;
+}
+
+.start-msg p {
+  font-size: 7px;
+  color: #aef;
+  line-height: 2.2;
+}
+
+@keyframes pulse {
+  from { opacity: 0.6; }
+  to   { opacity: 1;   }
+}
+
+/* ── Death / Game-Over Screen ────────────────────────────────────────────── */
+.death-msg {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 20;
+  background: rgba(0, 0, 10, 0.88);
+  padding: 14px 20px;
+  border: 2px solid #ffdd00;
+  min-width: 200px;
+}
+
+.death-msg h2 {
+  font-size: 10px;
+  color: #ff4444;
+  margin-bottom: 8px;
+}
+
+.death-msg p {
+  font-size: 7px;
+  color: #aef;
+  line-height: 2;
+}
+
+/* ── Controls Bar ────────────────────────────────────────────────────────── */
+.controls {
+  display: flex;
+  justify-content: center;
+  padding: 8px 10px;
+  background: #110828;
+}
+
+/* ── Jump Button ─────────────────────────────────────────────────────────── */
+.jump-btn {
+  background: rgba(255, 220, 0, 0.18);
+  border: 2px solid rgba(255, 220, 0, 0.55);
+  color: #ffdd00;
+  font-size: 9px;
+  width: 180px;
+  height: 52px;
+  border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: background 0.1s, transform 0.1s;
+}
+
+.jump-btn:active {
+  background: rgba(255, 220, 0, 0.4);
+  transform: scale(0.96);
+}
+
+/* ── Birthday / Win Screen ───────────────────────────────────────────────── */
+.bday-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: #0a0020;
+  padding: 20px 14px;
+  text-align: center;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 500px;
+}
+
+.crow {
+  font-size: 60px;
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.crow img{
+  width: 80px;
+  height: auto;
+}
+.bday-title {
+  font-size: 13px;
+  color: #ffdd00;
+  text-shadow: 2px 2px #c00, 4px 4px #800;
+  line-height: 2;
+  margin: 6px 0;
+}
+.big-cake {
+  font-size: 60px;
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bop 0.6s infinite alternate;
+}
+
+.big-cake img {
+  width: 200px;
+  height: auto;}
+
+@keyframes bop {
+  to { transform: translateY(-10px); }
+}
+
+.bday-sub {
+  font-size: 7px;
+  color: #aef;
+  line-height: 2.2;
+  text-align: center;
+}
+
+/* ── Open Letter Button ──────────────────────────────────────────────────── */
+.open-btn {
+  font-size: 8px;
+  background: #ffdd00;
+  color: #000;
+  border: 3px solid #fff;
+  padding: 14px 18px;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-top: 4px;
+  animation: glo 1s infinite alternate;
+  transition: transform 0.1s;
+}
+
+.open-btn:active {
+  transform: scale(0.97);
+}
+
+@keyframes glo {
+  from { box-shadow: 0 0 6px #fff; }
+  to   { box-shadow: 0 0 20px #ff0, 0 0 40px #fa0; }
+}
+
+/* ── Letter Modal Overlay ────────────────────────────────────────────────── */
+.letter-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+/* ── Letter Paper ────────────────────────────────────────────────────────── */
+.letter-paper {
+  background: #fff9ec;
+  border: 3px solid #c8a000;
+  padding: 22px 18px;
+  width: 100%;
+  max-width: 340px;
+  position: relative;
+}
+
+.letter-paper::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px dashed #c8a000;
+  pointer-events: none;
+}
+
+.letter-head {
+  font-size: 8px;
+  color: #a00;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.letter-body {
+  font-family: Georgia, serif;
+  font-size: 13px;
+  line-height: 1.9;
+  color: #2a1800;
+}
+
+.letter-body em {
+  font-style: italic;
+  color: #8b0000;
+}
+
+.letter-sig {
+  margin-top: 14px;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 12px;
+  color: #555;
+  text-align: right;
+}
+
+/* ── Close Button ────────────────────────────────────────────────────────── */
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #a00;
+  font-weight: bold;
+  background: none;
+  border: none;
+  font-family: serif;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.close-btn:hover {
+  color: #f00;
+}
