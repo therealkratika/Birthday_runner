@@ -2,13 +2,12 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import "./Game.css";
 import cakeImg from "./assets/cake.png";
 import bowImg from "./assets/bow.png";
-import balloonImg from "./assets/balloon.png";
 // ── Constants ──────────────────────────────────────────────────────────────
 const CW = 420;
 const CH = 240;
 const GY = CH - 44;
 const GRAV = 0.6;
-const JUMP_FORCE = -12.5;
+const JUMP_FORCE = -11.5;
 const CAKE_SCORE = 30;
 
 const CANDLE_COLORS  = ["#ff66aa", "#66aaff", "#aa55ff", "#ff8844"];
@@ -36,7 +35,7 @@ function makeInitialState() {
     score: 0,
     coinsGot: 0,
     lives: 3,
-    speed: 2,
+    speed: 3,
     frameCount: 0,
     bgOffset: 0,
     hillOffset: 0,
@@ -123,7 +122,7 @@ export default function Game() {
       setDeathSub(`Score: ${g.score}\nTap or SPACE to retry`);
     } else {
       setDeathTitle("OOPS! 😵");
-      setDeathSub(`Lives: ${g.lives}\nTap or SPACE to continue`);
+      setDeathSub(`Tap or SPACE to continue`);
     }
     setHudLives(Math.max(0, g.lives));
     setScreen("dead");
@@ -434,11 +433,8 @@ export default function Game() {
     // Head
     ctx.fillStyle = "#ffccaa"; ctx.fillRect(p.x + 3, p.y + 2,  16, 12);
     // Hat brim
-    ctx.fillStyle = "#dd0044"; ctx.fillRect(p.x + 2, p.y - 1,  18,  5);
-    // Hat top
-    ctx.fillStyle = "#ee1155"; ctx.fillRect(p.x + 6, p.y - 9,  10,  9);
-    // Hat pom
-    ctx.fillStyle = "#ffdd00";
+    ctx.fillStyle = "#080707"; ctx.fillRect(p.x + 2, p.y - 1,  18,  5);
+   
     ctx.beginPath();
     ctx.arc(p.x + 11, p.y - 10, 3, 0, Math.PI * 2);
     ctx.fill();
